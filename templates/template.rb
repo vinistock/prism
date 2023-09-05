@@ -311,9 +311,12 @@ module Prism
 
       HEADING
 
-      heading =
-        if File.extname(filepath.gsub(".erb", "")) == ".rb"
+      extension = File.extname(filepath.gsub(".erb", ""))
+
+      heading = if extension == ".rb"
           ruby_heading
+      elsif extension == ".rbi"
+          "# typed: strict\n#{ruby_heading}"
         else
           non_ruby_heading
         end
@@ -374,7 +377,8 @@ module Prism
     "src/node.c",
     "src/prettyprint.c",
     "src/serialize.c",
-    "src/token_type.c"
+    "src/token_type.c",
+    "rbi/yarp.rbi"
   ]
 end
 
